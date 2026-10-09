@@ -24,8 +24,15 @@ import androidx.media3.common.TrackSelectionParameters
 import androidx.media3.common.listen
 import androidx.media3.common.util.ExperimentalApi
 import androidx.media3.common.util.UnstableApi
+import androidx.media3.database.StandaloneDatabaseProvider
+import androidx.media3.datasource.DefaultHttpDataSource
+import androidx.media3.datasource.cache.CacheDataSource
+import androidx.media3.datasource.cache.LeastRecentlyUsedCacheEvictor
+import androidx.media3.datasource.cache.SimpleCache
+import androidx.media3.exoplayer.DefaultLoadControl
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.analytics.AnalyticsListener
+import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import androidx.media3.exoplayer.trackselection.DefaultTrackSelector
 import androidx.media3.session.CommandButton
 import androidx.media3.session.DefaultMediaNotificationProvider
@@ -167,6 +174,7 @@ class PlaybackService : MediaLibraryService() {
 
     private lateinit var player: ExoPlayer
     private lateinit var mediaLibrarySession: MediaLibrarySession
+    private var mediaCache: SimpleCache? = null
 
     private val mediaRepositoryTree by lazy {
         MediaRepositoryTree(
@@ -433,12 +441,41 @@ class PlaybackService : MediaLibraryService() {
     override fun onCreate() {
         super.onCreate()
 
+        val cacheEvictor = LeastRecentlyUsedCacheEvictor(250 * 1024 * 1024L)
+        val databaseProvider = StandaloneDatabaseProvider(this)
+        val mediaCacheDir = java.io.File(cacheDir, "media_cache")
+        mediaCache = SimpleCache(mediaCacheDir, cacheEvictor, databaseProvider)
+
+        val httpDataSourceFactory = DefaultHttpDataSource.Factory()
+            .setAllowCrossProtocolRedirects(true)
+            .setConnectTimeoutMs(15_000)
+            .setReadTimeoutMs(15_000)
+
+        val cacheDataSourceFactory = CacheDataSource.Factory()
+            .setCache(mediaCache!!)
+            .setUpstreamDataSourceFactory(httpDataSourceFactory)
+            .setFlags(CacheDataSource.FLAG_IGNORE_CACHE_ON_ERROR)
+
+        val loadControl = DefaultLoadControl.Builder()
+            .setBufferDurationsMs(
+                DefaultLoadControl.DEFAULT_MIN_BUFFER_MS,
+                DefaultLoadControl.DEFAULT_MAX_BUFFER_MS,
+                5_000,
+                10_000,
+            )
+            .build()
+
         val audioAttributes = AudioAttributes.Builder()
             .setContentType(C.AUDIO_CONTENT_TYPE_MUSIC)
             .setUsage(C.USAGE_MEDIA)
             .build()
 
         player = ExoPlayer.Builder(this)
+            .setMediaSourceFactory(
+                DefaultMediaSourceFactory(this)
+                    .setDataSourceFactory(cacheDataSourceFactory)
+            )
+            .setLoadControl(loadControl)
             .setAudioAttributes(audioAttributes, true)
             .setHandleAudioBecomingNoisy(true)
             .setRenderersFactory(
@@ -583,6 +620,9 @@ class PlaybackService : MediaLibraryService() {
 
         player.release()
         mediaLibrarySession.release()
+
+        mediaCache?.release()
+        mediaCache = null
 
         super.onDestroy()
     }
