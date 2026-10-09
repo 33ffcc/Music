@@ -50,6 +50,11 @@ interface MediaDataSource {
     suspend fun mediaTypeOf(mediaItemUri: Uri): MediaType?
 
     /**
+     * Check if a media item URI is compatible with this data source.
+     */
+    suspend fun isMediaItemCompatible(mediaItemUri: Uri): Boolean = mediaTypeOf(mediaItemUri) != null
+
+    /**
      * Given a compatible media item URI, get the [ProviderIdentifier] of the provider that
      * handles this media item.
      *

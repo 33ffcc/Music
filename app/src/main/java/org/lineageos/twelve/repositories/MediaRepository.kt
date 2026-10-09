@@ -427,10 +427,6 @@ class MediaRepository(
         } ?: flowOf(Result.Failure(Error.NOT_FOUND))
     }
 
-    private suspend fun MediaDataSource.isMediaItemCompatible(
-        mediaItemUri: Uri
-    ) = mediaTypeOf(mediaItemUri) != null
-
     companion object {
         val defaultAlbumsSortingRule = SortingRule(
             SortingStrategy.CREATION_DATE, true
