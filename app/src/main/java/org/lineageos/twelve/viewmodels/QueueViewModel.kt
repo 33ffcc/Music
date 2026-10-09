@@ -22,7 +22,7 @@ class QueueViewModel(application: Application) : TwelveViewModel(application) {
         .flowOn(Dispatchers.Main)
         .stateIn(
             viewModelScope,
-            SharingStarted.WhileSubscribed(),
+            SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             listOf()
         )
 

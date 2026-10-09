@@ -102,7 +102,7 @@ open class NowPlayingViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.Main)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             initialValue = MediaMetadata.EMPTY
         )
 
@@ -112,7 +112,7 @@ open class NowPlayingViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.Main)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             initialValue = null
         )
 
@@ -126,7 +126,7 @@ open class NowPlayingViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.IO)
         .shareIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
         )
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -140,7 +140,7 @@ open class NowPlayingViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.IO)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             initialValue = FlowResult.Loading
         )
 
@@ -150,7 +150,7 @@ open class NowPlayingViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.Main)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             initialValue = PlaybackState.IDLE
         )
 
@@ -160,7 +160,7 @@ open class NowPlayingViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.Main)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             initialValue = false
         )
 
@@ -170,7 +170,7 @@ open class NowPlayingViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.Main)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             initialValue = false
         )
 
@@ -180,7 +180,7 @@ open class NowPlayingViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.Main)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             initialValue = RepeatMode.NONE
         )
 
@@ -190,7 +190,7 @@ open class NowPlayingViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.Main)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             initialValue = PlaybackParameters.DEFAULT
         )
 
@@ -208,7 +208,7 @@ open class NowPlayingViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.IO)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             initialValue = null
         )
 
@@ -236,7 +236,7 @@ open class NowPlayingViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.IO)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             initialValue = null
         )
 
@@ -248,7 +248,7 @@ open class NowPlayingViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.IO)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             initialValue = null
         )
 
@@ -263,7 +263,7 @@ open class NowPlayingViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.IO)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             initialValue = null
         )
 
@@ -273,7 +273,7 @@ open class NowPlayingViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.Main)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             initialValue = Player.Commands.EMPTY
         )
 
@@ -293,7 +293,7 @@ open class NowPlayingViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.Main)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             initialValue = null to null
         )
 
@@ -308,7 +308,7 @@ open class NowPlayingViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.Main)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             initialValue = null
         )
 
@@ -322,7 +322,7 @@ open class NowPlayingViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.IO)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             initialValue = VisualizerType.NONE
         )
 
@@ -332,7 +332,7 @@ open class NowPlayingViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.IO)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             initialValue = false
         )
 
@@ -347,7 +347,7 @@ open class NowPlayingViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.IO)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             initialValue = FlowResult.Loading
         )
 
@@ -384,7 +384,7 @@ open class NowPlayingViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.IO)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             initialValue = FlowResult.Loading
         )
 
@@ -394,7 +394,7 @@ open class NowPlayingViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.IO)
         .shareIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             replay = 1
         )
 
@@ -410,7 +410,7 @@ open class NowPlayingViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.IO)
         .shareIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             replay = 1
         )
 
@@ -429,7 +429,7 @@ open class NowPlayingViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.IO)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             initialValue = null
         )
 

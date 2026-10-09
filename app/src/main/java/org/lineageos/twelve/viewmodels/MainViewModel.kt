@@ -31,7 +31,7 @@ class MainViewModel(application: Application) : TwelveViewModel(application) {
     val navigationProvider = mediaRepository.navigationProvider
         .stateIn(
             viewModelScope,
-            SharingStarted.WhileSubscribed(),
+            SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             null,
         )
 
@@ -55,7 +55,7 @@ class MainViewModel(application: Application) : TwelveViewModel(application) {
         .flowOn(Dispatchers.IO)
         .stateIn(
             viewModelScope,
-            SharingStarted.WhileSubscribed(),
+            SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
             FlowResult.Loading
         )
 
