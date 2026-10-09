@@ -48,6 +48,9 @@ class SubsonicClient(
     )
 
     private val okHttpClient = OkHttpClient.Builder()
+        .connectTimeout(15, java.util.concurrent.TimeUnit.SECONDS)
+        .readTimeout(15, java.util.concurrent.TimeUnit.SECONDS)
+        .writeTimeout(15, java.util.concurrent.TimeUnit.SECONDS)
         .cache(cache)
         .addInterceptor(interceptor)
         .build()

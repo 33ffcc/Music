@@ -60,6 +60,9 @@ class AmpacheClient(
     )
 
     private val okHttpClient = OkHttpClient.Builder()
+        .connectTimeout(15, java.util.concurrent.TimeUnit.SECONDS)
+        .readTimeout(15, java.util.concurrent.TimeUnit.SECONDS)
+        .writeTimeout(15, java.util.concurrent.TimeUnit.SECONDS)
         .addInterceptor(interceptor)
         .cache(cache)
         .build()
