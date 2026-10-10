@@ -82,7 +82,7 @@ class JellyfinClient(
         queryParameters = listOf(
             "IncludeItemTypes" to "MusicAlbum",
             "Recursive" to true,
-        ) + getSortParameter(sortingRule),
+        ) + getSortParameter(sortingRule, usePremiereDate = true),
     ).execute(api).mapToError()
 
     suspend fun getArtists(sortingRule: SortingRule) = ApiRequest.get<QueryResult>(
@@ -393,11 +393,14 @@ class JellyfinClient(
         )
     )
 
-    private fun getSortParameter(sortingRule: SortingRule) = buildList {
+    private fun getSortParameter(
+        sortingRule: SortingRule,
+        usePremiereDate: Boolean = false,
+    ) = buildList {
         add(
             "sortBy" to when (sortingRule.strategy) {
                 SortingStrategy.ARTIST_NAME -> "AlbumArtist,Artist"
-                SortingStrategy.CREATION_DATE -> "DateCreated"
+                SortingStrategy.CREATION_DATE -> if (usePremiereDate) "PremiereDate" else "DateCreated"
                 SortingStrategy.MODIFICATION_DATE -> "DateLastContentAdded"
                 SortingStrategy.NAME -> "Name"
                 SortingStrategy.PLAY_COUNT -> "PlayCount"
