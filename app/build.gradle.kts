@@ -15,7 +15,7 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "org.lineageos.twelve"
+        applicationId = "org.grapheneos.music"
         minSdk = 30
         targetSdk = 36
         versionCode = 1
