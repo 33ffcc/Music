@@ -124,25 +124,9 @@ class JellyfinDataSource(
             .setName(name)
             .build()
 
-        private fun normalizeAudioMimeType(container: String?, sourceType: String?): String? {
-            val raw = container ?: sourceType ?: return null
-            val lower = raw.lowercase()
-            return when {
-                lower.startsWith("audio/") -> lower
-                lower == "flac" -> "audio/flac"
-                lower in listOf("mp3", "mpeg") -> "audio/mpeg"
-                lower in listOf("m4a", "aac", "mp4") -> "audio/mp4"
-                lower in listOf("ogg", "oga") -> "audio/ogg"
-                lower in listOf("wav", "wave") -> "audio/wav"
-                lower == "opus" -> "audio/opus"
-                lower == "webm" -> "audio/webm"
-                else -> "audio/$lower"
-            }
-        }
-
         fun Item.toMediaItemAudio() = Audio.Builder(getAudioUri(id.toString()))
             .setPlaybackUri(client.getAudioPlaybackUrl(id).toUri())
-            .setMimeType(normalizeAudioMimeType(container, sourceType))
+            .setMimeType(container ?: sourceType)
             .setTitle(name)
             .setType(Audio.Type.MUSIC)
             .setDurationMs(runTimeTicks?.let { it / 10000 })
