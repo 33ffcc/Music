@@ -38,10 +38,6 @@ import org.lineageos.twelve.services.PlaybackService
  * the media controller to interact with the playback service.
  */
 abstract class TwelveViewModel(application: Application) : AndroidViewModel(application) {
-    companion object {
-        const val STOP_TIMEOUT_MILLIS = 5_000L
-    }
-
     protected val mediaRepository = getApplication<TwelveApplication>().mediaRepository
     protected val providersRepository = getApplication<TwelveApplication>().providersRepository
     protected val outputConfigurationRepository =

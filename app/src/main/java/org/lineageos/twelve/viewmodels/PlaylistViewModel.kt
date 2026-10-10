@@ -36,7 +36,7 @@ class PlaylistViewModel(application: Application) : TwelveViewModel(application)
         .flowOn(Dispatchers.IO)
         .stateIn(
             viewModelScope,
-            SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
+            SharingStarted.WhileSubscribed(),
             FlowResult.Loading
         )
 
@@ -48,7 +48,7 @@ class PlaylistViewModel(application: Application) : TwelveViewModel(application)
         .flowOn(Dispatchers.IO)
         .stateIn(
             viewModelScope,
-            SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
+            SharingStarted.WhileSubscribed(),
             false
         )
 

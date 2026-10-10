@@ -34,7 +34,7 @@ class FullscreenViewModel(application: Application) : AndroidViewModel(applicati
         .flowOn(Dispatchers.IO)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000L),
+            started = SharingStarted.WhileSubscribed(),
             initialValue = false
         )
 }

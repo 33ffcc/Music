@@ -29,7 +29,7 @@ class PlaybackControlViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.Main)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
+            started = SharingStarted.WhileSubscribed(),
             initialValue = PlaybackParameters(1f, 1f)
         )
 
@@ -39,7 +39,7 @@ class PlaybackControlViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.IO)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
+            started = SharingStarted.WhileSubscribed(),
             initialValue = false
         )
 
@@ -49,7 +49,7 @@ class PlaybackControlViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.IO)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
+            started = SharingStarted.WhileSubscribed(),
             initialValue = false
         )
 
@@ -59,7 +59,7 @@ class PlaybackControlViewModel(application: Application) : TwelveViewModel(appli
         .flowOn(Dispatchers.IO)
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
+            started = SharingStarted.WhileSubscribed(),
             initialValue = false
         )
 
